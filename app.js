@@ -1,14 +1,13 @@
 const express = require('express');
-const notaController = require('./controllers/notaController')
+const routesNotas = require('./routes/notasRoutes')
+const routesItems = require('./routes/itensRoutes')
 
 const app = express();
 const PORT = 3000
 
 app.use(express.json())
-app.get('/notas', notaController.getAllNotas);
-app.post('/notas', notaController.createNewNota);
-app.put('/notas', notaController.editNota);
-app.delete('/notas', notaController.deleteNota);
+app.use(routesNotas)
+app.use(routesItems)
 
 
 app.listen(PORT, () => {
