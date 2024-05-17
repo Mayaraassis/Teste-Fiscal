@@ -1,17 +1,17 @@
-const db = require('../config/db'); 
+const db = require('../config/db');
 
-const NotaFiscal = {
-    getAllNotas: async () => {
-        try{
+
+class NotaFiscal {
+    static async getAllNotas() {
+        try {
             const query = 'SELECT * FROM NotaFiscal';
             const result = await db.query(query);
             return result.rows;
-        } catch (error){
+        } catch (error) {
             throw error;
         }
-    },
-
-    createNota: async (Emissor, Data) => {
+    }
+    static async createNota(Emissor, Data) {
         try {
             const query = "insert INTO NotaFiscal ( Emissor, Data) VALUES ('$1','$2') returning *"
             const values = [ Emissor, Data];
@@ -20,9 +20,8 @@ const NotaFiscal = {
         }catch (error) {
             throw error;
         }
-    },
-
-    editNota: async (idNota,Emissor, Data) => {
+    }
+    static async editNota(idNota, Emissor, Data) {
         try {
             const query = "UPDATE NotaFiscal SET Emissor = $1, Data: $2 where idnota = $3"
             const values = [idNota,Emissor, Data]
@@ -31,8 +30,9 @@ const NotaFiscal = {
         }catch (error) {
             throw error;
         }
-    },
-    deleteNota: async (idNota) => {
+    }
+
+    static async deleteNota(idNota){
         try {
             const query = "Delete from NotaFiscal Where idnota = $1"
             const values = [idNota]
@@ -42,6 +42,7 @@ const NotaFiscal = {
             throw error;
         }
     }
-};
+}
+
 
 module.exports = NotaFiscal
